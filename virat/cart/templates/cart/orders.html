@@ -1,0 +1,29 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+<h2>Pending Orders</h2>
+
+{% if orders %}
+    <table>
+        <tr>
+            <th>Token</th>
+            <th>User</th>
+            <th>Order Date</th>
+            <th>Action</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.token_number }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>
+                <a href="{% url 'cart:mark_order_completed' order.id %}">Mark as Completed</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No pending orders.</p>
+{% endif %}
+
+{% endblock %}

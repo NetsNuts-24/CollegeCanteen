@@ -1,0 +1,66 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the background image for the entire body */
+body {
+    font-family: "Barriecito", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-image: url('backimage.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+/* Container to center the content */
+.container {
+    text-align: center;
+    color: white;
+}
+
+/* Styling for the content */
+.content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Styling for the buttons */
+.buttons {
+    margin-top: 30px;
+   
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for buttons */
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* Optional: Add a subtle shadow to buttons */
+.btn:active {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+

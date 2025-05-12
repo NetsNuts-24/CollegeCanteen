@@ -1,0 +1,66 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'account/styles.css' %}">
+    <style>
+        .status-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        .status-checkbox {
+            width: 25px;
+            height: 25px;
+            cursor: not-allowed;
+            appearance: none;
+            border: 2px solid #333;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .status-checkbox:checked {
+            background-color: green;
+            border-color: green;
+        }
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="fonty">
+    <div class="container">
+        <div class="content">
+            <h1>“People who love to eat are always the best people.” </h1>
+
+            <div class="buttons">
+                <button class="btn"><a href="{% url 'account:inregister' %}">Login</a></button>
+            </div>
+
+            <div class="footer">
+                <p>Canteen Timings: {{ canteen_status.opening_time }} - {{ canteen_status.closing_time }}</p>
+                <div class="status">
+                    <input type="checkbox" id="canteenStatus" {% if canteen_status.is_open %}checked{% endif %} disabled>
+                    <label for="canteenStatus">Canteen is {% if canteen_status.is_open %}Open{% else %}Closed{% endif %}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
+

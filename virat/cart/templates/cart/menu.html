@@ -1,0 +1,299 @@
+{% load static %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <style>body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: black; }
+        
+        .hero { text-align: center; padding: 20px; }
+        .hero img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; }
+
+        .categories { 
+            display: flex; justify-content: center; gap: 20px; 
+            padding: 20px; flex-wrap: wrap; 
+        }
+        .category { cursor: pointer; text-align: center; }
+        .category img { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            transition: transform 0.3s ease-in-out; 
+        }
+        .category img:hover { transform: scale(1.1); }
+
+        .menu-section { padding: 30px; text-align: center; }
+        .menu-section h2 { margin-bottom: 15px; color: #333; }
+
+        .menu-items { 
+            display: flex; overflow-x: auto; gap: 25px; 
+            padding: 10px 0; justify-content: center; flex-wrap: wrap;
+        }
+        .menu-item { 
+            display: flex; flex-direction: column; align-items: center; 
+            text-align: center; min-width: 200px; 
+            background: white; padding: 15px; border-radius: 10px; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s ease-in-out; 
+            position: relative;
+        }
+        .menu-item:hover { transform: translateY(-5px); }
+        .menu-item:hover .details { display: block; }
+        
+        .menu-item img { 
+            width: 180px; height: 180px; border-radius: 15px; 
+            object-fit: cover; margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu-item:hover img { transform: scale(1.1); }
+
+        .details {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            width: 90%;
+        }
+
+     
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .quantity-container input {
+            width: 40px;
+            text-align: center;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        p{
+            color: white;
+        }
+
+        .details p{
+            color: black;
+        }
+
+        h1{
+            color: white;
+        }
+        .details a[title]::after {
+            content: attr(title);
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            bottom: 100%;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(5px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .details a[title]:hover::after {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        .add-to-cart:hover { background-color: #e55d00; }
+        .image-container img.greyed {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.image-container .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+.menu-item .item-description {
+    display: none;
+    font-size: 20px;
+    color: black;
+    margin-top: 5px;
+    
+}
+
+
+
+.menu-item:hover .item-description {
+    display: block;
+}
+
+.item-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    color: black;
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover .item-description {
+    display: block;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <img src="{% static 'cart/coolhehe.jpg' %}" alt="Delicious Food">
+    </div>
+
+    <div style="text-align: center; padding: 20px;">
+        <a href="{% url 'cart:view_favorites' %}" 
+           style="margin: 0 10px; padding: 10px 15px; 
+                  background-color: red; color: white; 
+                  border-radius: 5px; text-decoration: none;">
+           ❤️ View Favorites
+        </a>
+    
+        <a href="{% url 'cart:view_quick_order' %}" 
+           style="margin: 0 10px; padding: 10px 15px; 
+                  background-color: orange; color: white; 
+                  border-radius: 5px; text-decoration: none;">
+           ⚡ Quick Order
+        </a>
+    </div>
+    
+    
+    <div class="categories">
+        <div class="category" onclick="scrollToSection('Biryani')">
+            <img src="{% static 'cart/biryani.jpg' %}" alt="Biryani">
+            <p>Biryani</p>
+        </div>
+        <div class="category" onclick="scrollToSection('Breads')">
+            <img src="{% static 'cart/roti.jpg' %}" alt="Naan">
+            <p>Breads</p>
+        </div>
+        
+        <div class="category" onclick="scrollToSection('Chinese')">
+            <img src="{% static 'cart/noodles.jpg' %}" alt="Chinese">
+            <p>Chinese</p>
+        </div>
+        <div class="category" onclick="scrollToSection('Snacks')">
+            <img src="{% static 'cart/chickensand.jpg' %}" alt="Snacks">
+            <p>Snacks</p>
+        </div>
+        <div class="category" onclick="scrollToSection('Veg Curries')">
+            <img src="{% static 'cart/paneermasala.jpg' %}" alt="Veg Curries">
+            <p>Veg Curries</p>
+        </div>
+        <div class="category" onclick="scrollToSection('Non veg section')">
+            <img src="{% static 'cart/chic65.jpg' %}" alt="Non-Veg">
+            <p>Non Veg Section</p>
+        </div>
+        <div class="category" onclick="scrollToSection('Desserts')">
+            <img src="{% static 'cart/chocomuf.jpg' %}" alt="Desserts">
+            <p>Desserts</p>
+        </div>   
+    </div>
+    {% for category in categories %}
+    <div id="{{ category.name|lower }}" class="menu-section">
+        <h1>{{ category.name }}</h1>
+        <div class="menu-items" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for item in menu_items %}
+                {% if item.category == category %}
+                    <div class="menu-item" style="border: 1px solid #ccc; padding: 15px; width: 250px;">
+                        <div class="image-container" style="position: relative; width: 100%;">
+                            <img src="{% static item.image %}" alt="{{ item.name }}"
+                                 class="{% if not item.is_available %}greyed{% endif %}"
+                                 style="width: 100%; height: 200px; object-fit: cover;">
+                        
+                            <div class="item-description">
+                                {{ item.description }}
+                            </div>
+                        
+                            {% if not item.is_available %}
+                                <div class="overlay">Not Available</div>
+                            {% endif %}
+                        </div>
+                        
+                        <h3>{{ item.name }}</h3>
+                        <p>Rs.{{ item.price }}</p>
+                        
+
+                        <div class="quantity-container">
+                            <button onclick="decreaseQuantity(this)">-</button>
+                            <input type="number" value="1" min="1">
+                            <button onclick="increaseQuantity(this)">+</button>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <a href="{% url 'cart:add_to_cart' item.id %}" class="add-to-cart">Add to Cart</a>
+                        </div>
+
+                        <div style="margin-top: 8px; display: flex; justify-content: center; gap: 10px;">
+                            <a href="{% url 'cart:add_to_favorites' item.id %}"
+                               title="Add to Favorites"
+                               style="font-size: 20px; color: red; text-decoration: none;">❤️</a>
+
+                            <a href="{% url 'cart:add_to_quick_order' item.id %}"
+                               title="Quick Order"
+                               style="font-size: 20px; color: orange; text-decoration: none;">⚡</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function scrollToSection(sectionName) {
+            let section = document.getElementById(sectionName.toLowerCase());
+            if (section) {
+                section.scrollIntoView({ behavior: "smooth", block: "start" });
+            } else {
+                console.error("Section not found:", sectionName);
+            }
+        }
+    </script>
+    
+{% endfor %}

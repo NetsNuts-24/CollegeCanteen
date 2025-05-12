@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Details</title>
+</head>
+<body>
+    <h2>Order Details for Token: {{ order.token_number }}</h2>
+    <p><strong>Name:</strong> {{ order.name }}</p>
+    <p><strong>Mobile:</strong> {{ order.mobile }}</p>
+    <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+    <p><strong>Status:</strong> {% if order.is_completed %} Completed {% else %} Pending {% endif %}</p>
+</body>
+</html>

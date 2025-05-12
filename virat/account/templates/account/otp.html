@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+{% load static %}  <!-- Load static files -->
+
+{% block content %}
+
+<head>
+    <style>
+        body {
+            background-image: url("{% static 'account/chole.jpg' %}"); /* Set background image */
+            background-size: cover; /* Cover the full page */
+            background-position: center; /* Center the background */
+            background-repeat: no-repeat; /* Prevent repetition */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9); /* Light transparency for readability */
+            backdrop-filter: blur(15px); /* Optional: Adds a subtle blur effect */
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+        <h3 class="text-center text-primary mb-3">Enter OTP</h3>
+        <p class="text-center text-muted">We've sent an OTP to your number <strong class="text-dark">{{ mobile }}</strong></p>
+
+        {% if message %}
+        <div class="alert alert-{{ class }} text-center">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" placeholder="Enter OTP" class="form-control rounded-pill px-3 py-2 text-center" name="otp" required>
+            </div>
+
+            <p class="text-center text-muted">Didn't receive the OTP?  
+                <a href="#" class="text-decoration-none text-primary">Resend</a>
+            </p>
+
+            <p class="text-center text-muted">Don't have an account?  
+                <a href="{% url 'account:inregister' %}" class="text-decoration-none text-primary">Register</a>
+            </p>
+
+            <button class="btn btn-primary w-100 py-2 rounded-pill shadow-sm">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
