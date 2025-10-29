@@ -264,18 +264,31 @@
                         </div>
 
                         <div style="margin-top: 10px;">
-                            <a href="{% url 'cart:add_to_cart' item.id %}" class="add-to-cart">Add to Cart</a>
-                        </div>
+    {% if item.is_available %}
+        <a href="{% url 'cart:add_to_cart' item.id %}" class="add-to-cart">Add to Cart</a>
+    {% else %}
+        <button disabled style="background: gray; opacity: 0.6; cursor:not-allowed; padding:8px 12px; border-radius:5px; border:none;">
+            Add to Cart
+        </button>
+    {% endif %}
+</div>
 
-                        <div style="margin-top: 8px; display: flex; justify-content: center; gap: 10px;">
-                            <a href="{% url 'cart:add_to_favorites' item.id %}"
-                               title="Add to Favorites"
-                               style="font-size: 20px; color: red; text-decoration: none;">❤️</a>
+<div style="margin-top: 8px; display: flex; justify-content: center; gap: 10px;">
+    {% if item.is_available %}
+        <a href="{% url 'cart:add_to_favorites' item.id %}"
+           title="Add to Favorites"
+           style="font-size: 20px; color: red; text-decoration: none;">❤️</a>
 
-                            <a href="{% url 'cart:add_to_quick_order' item.id %}"
-                               title="Quick Order"
-                               style="font-size: 20px; color: orange; text-decoration: none;">⚡</a>
-                        </div>
+        <a href="{% url 'cart:add_to_quick_order' item.id %}"
+           title="Quick Order"
+           style="font-size: 20px; color: orange; text-decoration: none;">⚡</a>
+    {% else %}
+        <span style="font-size:20px; opacity:0.4; cursor:not-allowed;">❤️</span>
+        <span style="font-size:20px; opacity:0.4; cursor:not-allowed;">⚡</span>
+    {% endif %}
+</div>
+
+                        
                     </div>
                 {% endif %}
             {% endfor %}

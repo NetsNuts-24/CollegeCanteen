@@ -1,22 +1,7 @@
- 
-# Ignore virtual env
 env/
-
-# Python cache
 __pycache__/
+db.sqlite3
+staticfiles/
 *.pyc
-
-# Environment variables
-*.env
-
-# SQLite database (if used)
-*.sqlite3
-
-# macOS and system files
-.DS_Store
-
-# Logs
 *.log
 
-# VS Code settings (if using)
-.vscode/

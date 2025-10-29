@@ -40,6 +40,29 @@
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
         }
+
+
+        /* Open */
+.status-open {
+    accent-color: green;      /* checkbox tick + border green */
+    border: 2px solid green;
+}
+
+/* Closed */
+.status-closed {
+    accent-color: darkred;    /* checkbox tick + border red */
+    border: 2px solid darkred;
+}
+
+.canteen-open {
+    color: green;
+    font-weight: bold;
+}
+
+.canteen-closed {
+    color: darkred;
+    font-weight: bold;
+}
     </style>
 </head>
 
@@ -54,10 +77,19 @@
 
             <div class="footer">
                 <p>Canteen Timings: {{ canteen_status.opening_time }} - {{ canteen_status.closing_time }}</p>
-                <div class="status">
-                    <input type="checkbox" id="canteenStatus" {% if canteen_status.is_open %}checked{% endif %} disabled>
-                    <label for="canteenStatus">Canteen is {% if canteen_status.is_open %}Open{% else %}Closed{% endif %}</label>
-                </div>
+<div class="status">
+    <input type="checkbox"
+           id="canteenStatus"
+           class="{% if canteen_status.is_open %}status-open{% else %}status-closed{% endif %}"
+           {% if canteen_status.is_open %}checked{% endif %}
+           disabled>
+    
+    <label for="canteenStatus"
+           class="{% if canteen_status.is_open %}canteen-open{% else %}canteen-closed{% endif %}">
+        Canteen is {% if canteen_status.is_open %}Open{% else %}Closed{% endif %}
+    </label>
+</div>
+
             </div>
         </div>
     </div>
